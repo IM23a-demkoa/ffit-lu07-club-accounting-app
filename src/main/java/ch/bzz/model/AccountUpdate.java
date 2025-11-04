@@ -4,33 +4,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Generated;
 import jakarta.validation.constraints.NotNull;
+import org.openapitools.jackson.nullable.JsonNullable;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * Account
+ * AccountUpdate
  */
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", comments = "Generator version: 7.7.0")
-public class Account {
+public class AccountUpdate {
 
   private Integer number;
 
-  private String name;
+  private JsonNullable<String> name = JsonNullable.<String>undefined();
 
-  public Account() {
+  public AccountUpdate() {
     super();
   }
 
   /**
    * Constructor with only required parameters
    */
-  public Account(Integer number, String name) {
+  public AccountUpdate(Integer number) {
     this.number = number;
-    this.name = name;
   }
 
-  public Account number(Integer number) {
+  public AccountUpdate number(Integer number) {
     this.number = number;
     return this;
   }
@@ -40,7 +41,7 @@ public class Account {
    * @return number
    */
   @NotNull 
-  @Schema(name = "number", example = "1000", requiredMode = Schema.RequiredMode.REQUIRED)
+  @Schema(name = "number", example = "1020", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("number")
   public Integer getNumber() {
     return number;
@@ -50,8 +51,8 @@ public class Account {
     this.number = number;
   }
 
-  public Account name(String name) {
-    this.name = name;
+  public AccountUpdate name(String name) {
+    this.name = JsonNullable.of(name);
     return this;
   }
 
@@ -59,14 +60,14 @@ public class Account {
    * Get name
    * @return name
    */
-  @NotNull 
-  @Schema(name = "name", example = "Kasse", requiredMode = Schema.RequiredMode.REQUIRED)
+  
+  @Schema(name = "name", example = "Bank", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("name")
-  public String getName() {
+  public JsonNullable<String> getName() {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(JsonNullable<String> name) {
     this.name = name;
   }
 
@@ -78,20 +79,31 @@ public class Account {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Account account = (Account) o;
-    return Objects.equals(this.number, account.number) &&
-        Objects.equals(this.name, account.name);
+    AccountUpdate accountUpdate = (AccountUpdate) o;
+    return Objects.equals(this.number, accountUpdate.number) &&
+        equalsNullable(this.name, accountUpdate.name);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(number, name);
+    return Objects.hash(number, hashCodeNullable(name));
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Account {\n");
+    sb.append("class AccountUpdate {\n");
     sb.append("    number: ").append(toIndentedString(number)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
